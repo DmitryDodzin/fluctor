@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DmitryDodzin/fluctor.git"
@@ -22,10 +25,22 @@
     "url": "https://github.com/DmitryDodzin/fluctor/issues"
   },
   "homepage": "https://github.com/DmitryDodzin/fluctor#readme",
+  "contributors": [
+    {
+      "name": "Dmitry Dodzin",
+      "email": "d.dodzin@gmail.com"
+    }
+  ],
   "dependencies": {
     "immutable": "^3.8.1",
     "ioredis": "^2.5.0",
     "linked-list": "^1.0.1",
     "lodash": "^4.17.4"
-  }
+  },
+  "maintainers": [
+    {
+      "name": "Dmitry Dodzin",
+      "email": "d.dodzin@gmail.com"
+    }
+  ]
 }
