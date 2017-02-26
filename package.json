@@ -1,6 +1,6 @@
 {
   "name": "fluctor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Flux-like + Actor Model",
   "main": "index.js",
   "scripts": {
@@ -35,7 +35,8 @@
     "immutable": "^3.8.1",
     "ioredis": "^2.5.0",
     "linked-list": "^1.0.1",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "uuid": "^3.0.1"
   },
   "maintainers": [
     {
