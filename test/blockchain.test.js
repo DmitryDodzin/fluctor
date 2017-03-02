@@ -80,13 +80,8 @@ describe('BlockChain', () => {
 
     const TransactionExecuter = require('../lib/transaction/transaction.executer');
 
-    before(() => {
-      sinon.stub(TransactionExecuter, 'execute');
-    });
-
-    after(() => {
-      TransactionExecuter.execute.restore();
-    });
+    before(() => sinon.stub(TransactionExecuter, 'execute'));
+    after(() => TransactionExecuter.execute.restore());
 
     it('Calls the TransactionExecuter', () => {
       let headBlock = Block.fromJSON('{ "transaction": [] }');
