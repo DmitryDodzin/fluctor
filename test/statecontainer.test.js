@@ -2,7 +2,7 @@
 const chai = require('chai');
 const expect = chai.expect;
 
-const Immutable = require('Immutable');
+const Immutable = require('immutable');
 
 const StateContainer = require('../lib/state/state.container');
 
