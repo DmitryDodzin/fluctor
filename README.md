@@ -10,7 +10,7 @@ Well, this is a library for making shared state across machines.
 [npm][]:
 
 ```bash
-npm install linked-list
+npm install fluctor
 ```
 
 
