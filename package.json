@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node_modules/.bin/_mocha",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- -u exports -R spec",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "engines": {
