@@ -1,5 +1,7 @@
 sudo: false
 
+services: redis-server
+
 language: node_js
 
 cache: node_modules
