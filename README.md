@@ -22,7 +22,11 @@ Well once you create an ```fluctor``` object you have a state and you can change
 
 const Fluctor = require('fluctor').Fluctor;
 
-var fluctor = new Fluctor()
+
+var fluctor = new Fluctor({
+  initial: {}, // initial state
+  connection: {} // connection settings
+});
 
 fluctor.state // => the state
 
