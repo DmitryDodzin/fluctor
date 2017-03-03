@@ -4,7 +4,9 @@
   "description": "Flux-like + Actor Model",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/_mocha",
+    "cover": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha",
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "engines": {
     "node": ">=6.0.0"
@@ -43,5 +45,13 @@
       "name": "Dmitry Dodzin",
       "email": "d.dodzin@gmail.com"
     }
-  ]
+  ],
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.16",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "mocha-lcov-reporter": "^1.3.0",
+    "sinon": "^1.17.7"
+  }
 }
