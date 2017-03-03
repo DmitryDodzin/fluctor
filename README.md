@@ -1,6 +1,8 @@
 # fluctor
 Flux-like + Actor Model
 
+[![Build Status](https://travis-ci.org/DmitryDodzin/fluctor.svg?branch=master)](https://travis-ci.org/DmitryDodzin/fluctor) [![Coverage Status](https://coveralls.io/repos/github/DmitryDodzin/fluctor/badge.svg?branch=master)](https://coveralls.io/github/DmitryDodzin/fluctor?branch=master)
+
 Well, this is a library for making shared state across machines.
 
 ## Installation
@@ -8,7 +10,7 @@ Well, this is a library for making shared state across machines.
 [npm][]:
 
 ```bash
-npm install linked-list
+npm install fluctor
 ```
 
 
@@ -20,7 +22,11 @@ Well once you create an ```fluctor``` object you have a state and you can change
 
 const Fluctor = require('fluctor').Fluctor;
 
-var fluctor = new Fluctor()
+
+var fluctor = new Fluctor({
+  initial: {}, // initial state
+  connection: {} // connection settings
+});
 
 fluctor.state // => the state
 
