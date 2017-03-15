@@ -95,6 +95,36 @@ describe('Transaction', () => {
     expect(transaction.toJSON()).to.equal(JSON.stringify([modification]));
   });
 
+  it('Increment', () => {
+
+    let state_container = { state: { foo: 1 } };
+    let modification = { type: 'INCREMENT', path: 'foo', value: undefined };
+
+    let transaction = new Transaction(state_container);
+
+    transaction.increment(modification.path);
+
+    expect(TransactionExecuter.modificationRedcuer.getCall(0).args[1]).to.deep.equal(modification);
+    expect(transaction.modifications.pop()).to.deep.equal(modification);
+
+    expect(transaction.toJSON()).to.equal(JSON.stringify([modification]));
+  });
+
+  it('Decrement', () => {
+
+    let state_container = { state: { foo: 1 } };
+    let modification = { type: 'DECREMENT', path: 'foo', value: undefined };
+
+    let transaction = new Transaction(state_container);
+
+    transaction.decrement(modification.path);
+
+    expect(TransactionExecuter.modificationRedcuer.getCall(0).args[1]).to.deep.equal(modification);
+    expect(transaction.modifications.pop()).to.deep.equal(modification);
+
+    expect(transaction.toJSON()).to.equal(JSON.stringify([modification]));
+  });
+
   it('Commit and Rollback', () => {
 
     let state_container = { state: { foo: 'bar' } };

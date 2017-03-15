@@ -83,6 +83,44 @@ describe('Transaction Executer', () => {
 
     });
 
+    it('INCREMENT', () => {
+
+      let state_container = { set: sinon.spy(), get: () => 1 };
+      let modification1 = { type: 'INCREMENT', path: 'foo' };
+      let modification2 = { type: 'INCREMENT', path: 'foo', value: 1.1 };
+
+      TransactionExecuter.modificationRedcuer(state_container, modification1);
+      TransactionExecuter.modificationRedcuer(state_container, modification2);
+
+      assert(state_container.set.calledTwice, 'Incorrect call count');
+
+      expect(state_container.set.getCall(0).args[0]).to.equal(modification1.path);
+      expect(state_container.set.getCall(0).args[1].call()).to.equal(state_container.get() + 1);
+
+      expect(state_container.set.getCall(1).args[0]).to.equal(modification2.path);
+      expect(state_container.set.getCall(1).args[1].call()).to.equal(state_container.get() + modification2.value);
+
+    });
+
+    it('DECREMENT', () => {
+
+      let state_container = { set: sinon.spy(), get: () => 1 };
+      let modification1 = { type: 'DECREMENT', path: 'foo' };
+      let modification2 = { type: 'DECREMENT', path: 'foo', value: 1.1 };
+
+      TransactionExecuter.modificationRedcuer(state_container, modification1);
+      TransactionExecuter.modificationRedcuer(state_container, modification2);
+
+      assert(state_container.set.calledTwice, 'Incorrect call count');
+
+      expect(state_container.set.getCall(0).args[0]).to.equal(modification1.path);
+      expect(state_container.set.getCall(0).args[1].call()).to.equal(state_container.get() - 1);
+
+      expect(state_container.set.getCall(1).args[0]).to.equal(modification2.path);
+      expect(state_container.set.getCall(1).args[1].call()).to.equal(state_container.get() - modification2.value);
+
+    });
+
   });
 
 });
