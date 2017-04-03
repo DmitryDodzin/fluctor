@@ -46,15 +46,14 @@ describe('Fluctor', () => {
     assert(callback.calledOnce);
   });
 
-  it('Tran and Transaction', (done) => {
+  describe('Transaction', () => {
 
-    let transaction_interface = fluctor.tran;
+    beforeEach(() => sinon.stub(fluctor.sync_client, 'publish'));
 
-    sinon.stub(fluctor.sync_client, 'publish');
+    afterEach(() => fluctor.sync_client.publish.restore());
 
-    try{
-
-      let transaction = transaction_interface.begin();
+    it('Basic Commit', done => {
+      let transaction = fluctor.tran.begin();
 
       let tran_prommise = transaction.commit();
 
@@ -63,10 +62,45 @@ describe('Fluctor', () => {
       assert(fluctor.sync_client.publish.calledWith(transaction));
 
       expect(tran_prommise).be.fulfilled.and.notify(done);
-    } finally {
-      fluctor.sync_client.publish.restore();      
-    }
+    });
+
+    it('Multipe Commits', done => {
+
+      let transactions = [];
+
+      for(var i = 0; i < 5; i++){
+        transactions.push(fluctor.tran.begin());
+      }
+
+      let transaction_promises = 
+        transactions.map(tran => tran.commit());
+
+      transactions.forEach(tran => fluctor.sync_client.publish.calledWith(tran));
+
+      fluctor.sync_client.emit('stateChange', { type: 'multiple', ids: transactions.map(tran => tran.id) });
+
+      Promise.all(transaction_promises.map(tran_promise => expect(tran_promise).be.fulfilled))
+        .then(() => done())
+        .catch(err => done(err));
+    });
+
+    it('Commit Timeout', done => {
+
+      fluctor.options.timeout = 0;
+
+      let transaction = fluctor.tran.begin();
+
+      let tran_prommise = transaction.commit();
+
+      delete fluctor.options.timeout;
+
+      fluctor.sync_client.emit('stateChange', { type: 'multiple', ids: [] }); // Also check if no ids
+
+      expect(tran_prommise).be.rejected.and.notify(done);
+    });
 
   });
+
+  
 
 });
