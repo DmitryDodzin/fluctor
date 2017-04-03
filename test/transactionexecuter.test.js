@@ -17,7 +17,7 @@ describe('Transaction Executer', () => {
       let modification1 = { stuff: '1' };
       let modification2 = { stuff: '2' };
 
-      TransactionExecuter.execute(state_container, [modification1, modification2]);
+      TransactionExecuter.execute(state_container, { modifications: [modification1, modification2] });
 
       assert(TransactionExecuter.modificationRedcuer.calledTwice);
       assert(TransactionExecuter.modificationRedcuer.calledWith(state_container, modification1));
