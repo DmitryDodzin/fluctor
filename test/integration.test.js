@@ -1,8 +1,13 @@
 
 const sinon = require('sinon');
 const chai = require('chai');
+const chaiAsPromised = require("chai-as-promised");
+
+chai.use(chaiAsPromised);
+
 const assert = chai.assert;
 const expect = chai.expect;
+
 
 const Redis = require('ioredis');
 
@@ -41,7 +46,7 @@ describe('Fluctor', () => {
     assert(callback.calledOnce);
   });
 
-  it('Tran and Transaction', () => {
+  it('Tran and Transaction', (done) => {
 
     let transaction_interface = fluctor.tran;
 
@@ -51,10 +56,13 @@ describe('Fluctor', () => {
 
       let transaction = transaction_interface.begin();
 
-      transaction.commit();
+      let tran_prommise = transaction.commit();
+
+      fluctor.sync_client.emit('stateChange', transaction);
 
       assert(fluctor.sync_client.publish.calledWith(transaction));
 
+      expect(tran_prommise).be.fulfilled.and.notify(done);
     } finally {
       fluctor.sync_client.publish.restore();      
     }
