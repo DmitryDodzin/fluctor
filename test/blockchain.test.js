@@ -10,7 +10,7 @@ const BlockChain = require('../lib/blockchain/blockchain');
 
 describe('BlockChain', () => {
 
-  it('BlockChain#Block', () => {
+  it('BlockChain Block', () => {
     let blockchain = new BlockChain();
     expect(blockchain.Block).to.equal(Block);
   });
