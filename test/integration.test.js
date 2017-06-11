@@ -96,7 +96,13 @@ describe('Fluctor', () => {
 
       fluctor.sync_client.emit('stateChange', { type: 'multiple', ids: [] }); // Also check if no ids
 
-      expect(tran_prommise).be.rejected.and.notify(done);
+      expect(tran_prommise).be.rejected.and
+      .notify(err => {
+        if(err.message === 'Timeout, Execution Exceeded 0')
+          done();
+        else 
+          done(err);
+      });
     });
 
   });
