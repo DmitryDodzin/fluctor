@@ -28,7 +28,7 @@ describe('Snapshot', () => {
 
     let state = {};
 
-    let snapshot = new Snapshot(state, mock_appender);
+    let snapshot = new Snapshot(state, { id: "someBlockId" }, mock_appender);
 
     let push_promise = snapshot.push();
 
