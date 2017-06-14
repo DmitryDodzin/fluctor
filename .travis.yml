@@ -1,24 +1,21 @@
 sudo: false
 
 services: redis-server
-
 language: node_js
 
 cache: node_modules
-
 node_js:
-- "stable"
+  - stable
 
 install:
-- npm install
-
+  - npm install
 after_success:
-- npm run coveralls
+  - npm run coveralls
 
 deploy:
   provider: npm
   email: d.dodzin@gmail.com
   api_key:
-    secure: I9V8McFy9RRY5raRlOJK7lJrHazVTNZ8sOXSs/GF6n0nebo7cVvtn3NIj/SbsAJFwPqC5UQgQFkraJZxNYDQLcVxd6lpm5LcnYtw7cqkHaQQKYyKb7UEgpx3KmCQCsX2AIsKLYC17zBZYDn6qMWvx2y1Iddava3vg/hEIfCt3A2D7bL0puzCjBaebL8SfhuN65/BEzBUt5YzKfykyrCDDYmzGKKjLKSaA5PsXnqppZcLBEoYkrMrKq5ocKQKbNCkpKhG6Qw8hHdsG1VOURxTZQPIaPlQ98mB/PvXjDPU4dyRZDy9/VZarlUQY8u7EhzDVWy2anDV7kHbUMiSTzv/40US4QYf6QWdVFlvkfXbgAAY9xWxE4jWrmJSY83PTE2boGD3QhSZpCs4OcoYgZdIHzhHLydLidQjMRbi5tO8UXsnj7f6A80YbE/8HHJF7jIXwOJpbpWjWFIbYuvUbhZOi5F1saz1J4lHeQ3UgVPXRSbkUMa0sn322T5Tlgi+SEL0NkW9ae/ENJznMmFXiBDcjVvZjk9ET8GE2OwQ8wBJOZTlmf4TfHXvzAfMGmTumoAUipZUUpsAy0io89EXEgO446ykXfM9vxykwcR6CxJfyLfjOa6nDP+nNpt7PEho+GFNz17856YM83jggpnJlGnh1c30QjTJKVJznnIIHekS+kw=
+    secure: Txrb9rPMDvtn+MdRNnC0t0KF0HnHjy5GFPlrQXRNAcYcX+Th4YW/z1b2WeSk0DKMapgun7yn80/4+Z9N9keVyKgkQmxB/kO6wG6or9I1UUp5cs2ml6Cn4zL3cNhP8mSdX6Uw/jsi+iKDSZjJFfsrRJddxOLBzWrFuzxAm2nGPEDGYBImZ2crNcwMvWOY4DF+yqaj7bx0CvOOVEpoqiVZoNMM9UlnAU+aeZf4WXHiLJN6VaV85H3+SUuWZcGMjTuIPLYOIpgc6N0L1ZNZh6KUyqIqLwxG7kJSAL3aZ0BDLS33TLsxTt5IDc3wqVOUo6J/Yaf4zA6O1tZKV+veDEr/aBFf21rJu1W6+rW+gqRd6PFWZfrbMZ5aQFJ9DrgwEBMUCCGzwtjuKoEQqtSgOQ+VzUPLT4KcNqPPu+Bt1oKCjZRXXHOGSDoqXMsTaEB8Fos+NPhj6Hu1w3pUQMRiin6ByPwvX6DKVS+CVjDCSk48aF2Q2H7y2UtLjT5/Q9TjY7KkQGpWoD6VkTEFXY6Dc11zmePFldATXbyLIBQKh1z+A5RNuc3aAp5HPppQZzjSVfUAzX1cwot/ggjUru82ijbmJtSdX6+u4ttLGHy2N862FtRN5wJXh88IYq3SyLBfliJ91pvXkHoSK9H6BwnjKUIY3MNVOy/r6TlFlZcYwGYD/qc=
   on:
     branch: master
