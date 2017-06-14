@@ -23,7 +23,6 @@ npm install fluctor
 Well once you create a ```fluctor``` object you have an immutalbe state that you can change with transactions
 
 ```javascript
-
 const Fluctor = require('fluctor').Fluctor;
 
 
@@ -43,8 +42,36 @@ fluctor
     console.log('Transaction Commited'));
 
 fluctor.state // => { "foo": "bar" } is the value here and every other server
+```
+
+## Transaction
+
+```javascript
+let tran = fluctor.tran.begin();
+
+tran.set(path, value); // Set value
+
+tran.remove(path); // Delete value
+
+tran.push(path, value); // Appends value to an array
+
+tran.increment(path, value=1); // Increment Numeric value
+
+tran.decrement(path, value=1); // Decrement Numeric value
+
+tran.commit();
 
 ```
+
+
+## Roadmap
+This project started as a personal need and i figured out that it should be a fully fledged library. That means there are a lot of tasks to be completed befor the library is production ready =]
+
+- [ ] Make the thing production ready
+- [ ] Make the Appenders be plugginable
+- [ ] Figure out a custom p2p comunication
+- [ ] Settle on a more strict role splitting among nodes
+- [ ] Maybe transfer some of the core code to native code
 
 
 ## License
