@@ -9,7 +9,7 @@ const assert = chai.assert;
 const expect = chai.expect;
 
 const Fluctor = require('../lib/fluctor');
-const AppenderFactory = require('../lib/blockchain/appenders/appender.factory');
+const AppenderFactory = require('../lib/blockchain/appender.factory');
 const Snapshot = require('../lib/blockchain/snapshot');
 
 
@@ -20,29 +20,19 @@ describe('Snapshot', () => {
   beforeEach(() => {
     mock_appender = {
       load: sinon.spy(),
-      push_snapshot: sinon.spy()
+      pushSnapshot: sinon.spy()
     };
-    sinon.stub(AppenderFactory, 'appender').returns(Promise.resolve(mock_appender));
   });
 
-  afterEach(() => AppenderFactory.appender.restore());
-
-  it('Snapshot added to appender', done => {
+  it('Snapshot added to appender', () => {
 
     let state = {};
 
-    let snapshot = new Snapshot(state);
+    let snapshot = new Snapshot(state, { id: "someBlockId" }, mock_appender);
 
     let push_promise = snapshot.push();
 
-    assert(AppenderFactory.appender.calledOnce); // Test that the call count didn't change
-
-    push_promise.then(() => {
-      assert(mock_appender.push_snapshot.calledWith(snapshot));
-      done();
-    })
-    .catch(err => done(err));
-
+    assert(mock_appender.pushSnapshot.calledWith(snapshot));
   });
 
   it('Snapshot Creation API', () => {

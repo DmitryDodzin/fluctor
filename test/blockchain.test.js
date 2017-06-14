@@ -29,13 +29,13 @@ describe('BlockChain', () => {
       let block = Block.fromJSON('{ "transaction": [] }');
       let blockchain = new BlockChain();
 
-      blockchain.appender = {
-        push: sinon.spy()
-      };
+      let updateSpy = sinon.spy();
+
+      blockchain.blocks.on('pushed', updateSpy);
 
       blockchain.append(block);
 
-      assert(!blockchain.appender.push.called, 'Appender was called');
+      assert(!updateSpy.called, 'Appender was called');
       expect(blockchain.head).to.equal(block, 'Is not appended to head');
       expect(blockchain.toArray().length).to.equal(1, 'length isnt equal to 1');
     });
@@ -45,13 +45,12 @@ describe('BlockChain', () => {
       let transaction = new Transaction({});
       let blockchain = new BlockChain();
 
-      blockchain.appender = {
-        push: sinon.spy()
-      };
+      let updateSpy = sinon.spy();
+      blockchain.blocks.on('pushed', updateSpy);
 
       blockchain.append(transaction);
 
-      assert(blockchain.appender.push.called, 'Appender wasn\'t called');
+      assert(updateSpy.called, 'Appender wasn\'t called');
       expect(blockchain.head.transaction).to.equal(transaction, 'head');
       expect(blockchain.toArray().length).to.equal(1);
     });
