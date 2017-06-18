@@ -3,6 +3,7 @@ const sinon = require('sinon');
 const chai = require('chai');
 const expect = chai.expect;
 const assert = chai.assert;
+const uuid = require('uuid');
 
 const Block = require('../lib/blockchain/block');
 const BlockChain = require('../lib/blockchain/blockchain');
@@ -93,6 +94,26 @@ describe('BlockChain', () => {
 
       assert(TransactionExecuter.execute.calledOnce, 'Was invoked');
       assert(TransactionExecuter.execute.calledWith(state_container, headBlock.transaction), 'Was invoked with correct params');
+    });
+
+  });
+
+  describe('Compact', () => {
+
+    it('Basic', () => {
+      let blocks = [
+        Block.load({ id: uuid.v4(), 'transaction': [] }),
+        Block.load({ id: uuid.v4(), 'transaction': [] }),
+        Block.load({ id: uuid.v4(), 'transaction': [] })
+      ];
+
+      let blockchain = new BlockChain(...blocks);
+
+      expect(blockchain.compact(blocks[0].id)).to.equal(false);
+      expect(blockchain.toArray()).to.deep.equal(blocks);
+
+      expect(blockchain.compact(blocks[2].id)).to.equal(true);
+      expect(blockchain.toArray()).to.deep.equal([ blocks[2] ]);
     });
 
   });
