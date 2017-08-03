@@ -83,6 +83,28 @@ describe('Transaction Executer', () => {
 
     });
 
+
+    it('LIST_POP', () => {
+
+      let state_container = { set: sinon.spy(), get: () => ({ last: sinon.spy() }) };
+      let modification = { type: 'LIST_POP', path: 'foo' };
+
+      TransactionExecuter.modificationRedcuer(state_container, modification);
+
+      assert(state_container.set.calledOnce);
+
+      expect(state_container.set.getCall(0).args[0]).to.equal(modification.path);
+
+      let base_array = [10];
+      let result_array = [];
+
+      let returnValue = state_container.set.getCall(0).args[1](base_array);
+
+      expect(base_array).to.deep.equal(result_array);
+      expect(returnValue).to.equal(10);
+
+    });
+
     it('INCREMENT', () => {
 
       let state_container = { set: sinon.spy(), get: () => 1 };
