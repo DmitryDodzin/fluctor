@@ -57,7 +57,7 @@ describe('Fluctor', () => {
 
       let tran_prommise = transaction.commit();
 
-      fluctor.sync_client.emit('stateChange', transaction);
+      fluctor.sync_client.emit('stateChange', { type: 'single', transaction, changes: [] });
 
       assert(fluctor.sync_client.publish.calledWith(transaction));
 
@@ -77,7 +77,7 @@ describe('Fluctor', () => {
 
       transactions.forEach(tran => fluctor.sync_client.publish.calledWith(tran));
 
-      fluctor.sync_client.emit('stateChange', { type: 'multiple', ids: transactions.map(tran => tran.id) });
+      fluctor.sync_client.emit('stateChange', { type: 'multiple', transactions, changes: [] });
 
       Promise.all(transaction_promises.map(tran_promise => expect(tran_promise).be.fulfilled))
         .then(() => done())
@@ -86,15 +86,15 @@ describe('Fluctor', () => {
 
     it('Commit Timeout', done => {
 
-      fluctor.options.timeout = 0;
+      fluctor.transaction_transport.timeoutDuration = 0;
 
       let transaction = fluctor.tran.begin();
 
       let tran_prommise = transaction.commit();
 
-      delete fluctor.options.timeout;
+      fluctor.transaction_transport.timeoutDuration = 30000;
 
-      fluctor.sync_client.emit('stateChange', { type: 'multiple', ids: [] }); // Also check if no ids
+      fluctor.sync_client.emit('stateChange', { type: 'multiple', transactions: [], changes: [] }); // Also check if no ids
 
       expect(tran_prommise).be.rejected.and
       .notify(err => {
