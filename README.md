@@ -55,11 +55,14 @@ tran.remove(path); // Delete value
 
 tran.push(path, value); // Appends value to an array
 
+tran.pop(path); // Pops last value from array
+
 tran.increment(path, value=1); // Increment Numeric value
 
 tran.decrement(path, value=1); // Decrement Numeric value
 
-tran.commit();
+tran.commit()
+  .then(changes => { /* the returning value from the modifications */ });
 
 ```
 
