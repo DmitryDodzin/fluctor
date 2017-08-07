@@ -95,6 +95,21 @@ describe('Transaction', () => {
     expect(transaction.toJSON()).to.equal(JSON.stringify({id: transaction.id, modifications: [modification] }));
   });
 
+  it('Pop', () => {
+
+    let state_container = { state: { foo: 'bar' } };
+    let modification = { type: 'LIST_POP', path: 'foo' };
+
+    let transaction = new Transaction(state_container);
+
+    transaction.pop(modification.path);
+
+    assert(TransactionExecuter.modificationRedcuer.calledOnce);
+    expect(TransactionExecuter.modificationRedcuer.getCall(0).args[1]).to.deep.equal(modification);
+    expect(transaction.modifications.pop()).to.deep.equal(modification);
+    expect(transaction.toJSON()).to.equal(JSON.stringify({id: transaction.id, modifications: [modification] }));
+  });
+
   it('Increment', () => {
 
     let state_container = { state: { foo: 1 } };
