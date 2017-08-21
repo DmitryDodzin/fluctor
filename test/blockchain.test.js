@@ -102,17 +102,17 @@ describe('BlockChain', () => {
 
     it('Basic', () => {
       let blocks = [
-        Block.load({ id: uuid.v4(), 'transaction': [] }),
-        Block.load({ id: uuid.v4(), 'transaction': [] }),
-        Block.load({ id: uuid.v4(), 'transaction': [] })
+        Block.load({ id: uuid.v4(), timestamp: Date.now() - 200, 'transaction': [] }),
+        Block.load({ id: uuid.v4(), timestamp: Date.now() - 100, 'transaction': [] }),
+        Block.load({ id: uuid.v4(), timestamp: Date.now(), 'transaction': [] })
       ];
 
       let blockchain = new BlockChain(...blocks);
 
-      expect(blockchain.compact(blocks[0].id)).to.equal(false);
+      expect(blockchain.compact(blocks[0].timestamp)).to.equal(false);
       expect(blockchain.toArray()).to.deep.equal(blocks);
 
-      expect(blockchain.compact(blocks[2].id)).to.equal(true);
+      expect(blockchain.compact(blocks[2].timestamp)).to.equal(true);
       expect(blockchain.toArray()).to.deep.equal([ blocks[2] ]);
     });
 
