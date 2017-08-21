@@ -36,6 +36,7 @@
   "dependencies": {
     "chai": "^4.0.2",
     "fluctor-redis-appender": "^1.0.2",
+    "fluctor-redis-sync": "^1.0.0",
     "immutable": "^3.8.1",
     "ioredis": "^3.1.1",
     "linked-list": "^1.0.1",
