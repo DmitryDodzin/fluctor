@@ -69,7 +69,7 @@ describe('Transaction', () => {
   it('Remove', () => {
 
     let state_container = { state: { foo: 'bar' } };
-    let modification = { type: 'REMOVE', path: 'foo' };
+    let modification = { type: 'REMOVE', path: 'foo', value: undefined };
 
     let transaction = new Transaction(state_container);
 
@@ -83,7 +83,7 @@ describe('Transaction', () => {
   it('Push', () => {
 
     let state_container = { state: { foo: 'bar' } };
-    let modification = { type: 'LIST_APPEND', path: 'foo', value: 'bar' };
+    let modification = { type: 'PUSH', path: 'foo', value: 'bar' };
 
     let transaction = new Transaction(state_container);
 
@@ -98,7 +98,7 @@ describe('Transaction', () => {
   it('Pop', () => {
 
     let state_container = { state: { foo: 'bar' } };
-    let modification = { type: 'LIST_POP', path: 'foo' };
+    let modification = { type: 'POP', path: 'foo', value: undefined };
 
     let transaction = new Transaction(state_container);
 

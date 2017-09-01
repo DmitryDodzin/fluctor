@@ -63,14 +63,14 @@ describe('Transaction Executer', () => {
       expect(state_container.remove.getCall(0).args[0]).to.equal(modification.path);
     });
 
-    it('LIST_APPEND', () => {
+    it('PUSH', () => {
 
       let state_container = { set: sinon.spy() };
-      let modification = { type: 'LIST_APPEND', path: 'foo', value: 'bar' };
+      let modification = { type: 'PUSH', path: 'foo', value: 'bar' };
 
       TransactionExecuter.modificationRedcuer(state_container, modification);
 
-      assert(state_container.set.calledOnce);
+      assert(state_container.set.calledOnce, 'State Container wasn\'t called');
 
       expect(state_container.set.getCall(0).args[0]).to.equal(modification.path);
 
@@ -84,14 +84,14 @@ describe('Transaction Executer', () => {
     });
 
 
-    it('LIST_POP', () => {
+    it('POP', () => {
 
       let state_container = { set: sinon.spy(), get: () => ({ last: sinon.spy() }) };
-      let modification = { type: 'LIST_POP', path: 'foo' };
+      let modification = { type: 'POP', path: 'foo' };
 
       TransactionExecuter.modificationRedcuer(state_container, modification);
 
-      assert(state_container.set.calledOnce);
+      assert(state_container.set.calledOnce, 'State Container wasn\'t called');
 
       expect(state_container.set.getCall(0).args[0]).to.equal(modification.path);
 
