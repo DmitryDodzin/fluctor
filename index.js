@@ -3,5 +3,10 @@
 const Fluctor = require('./lib/fluctor');
 
 module.exports = {
-  Fluctor
+  Fluctor,
+  create: options => new Promise((resolve, reject) => {
+    let fluctor = new Fluctor(options);
+    fluctor.on('ready', resolve);
+    fluctor.on('initError', reject);
+  })
 };

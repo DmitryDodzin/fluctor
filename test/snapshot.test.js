@@ -8,20 +8,28 @@ chai.use(chaiAsPromised);
 const assert = chai.assert;
 const expect = chai.expect;
 
-const Fluctor = require('../lib/fluctor');
+const { create } = require('../index');
 const AppenderFactory = require('../lib/blockchain/appender.factory');
-const Snapshot = require('../lib/blockchain/snapshot');
+const Snapshot = require('../lib/snapshot/snapshot');
 
 
 describe('Snapshot', () => {
 
   let mock_appender;
+  let fluctor;
 
-  beforeEach(() => {
+  beforeEach(done => {
     mock_appender = {
       load: sinon.spy(),
       pushSnapshot: sinon.spy()
     };
+
+    create()
+      .then(f => {
+        fluctor = f;
+        done();
+      })
+      .catch(err => done(err));
   });
 
   it('Snapshot added to appender', () => {
@@ -37,16 +45,12 @@ describe('Snapshot', () => {
 
   it('Snapshot Creation API', () => {
 
-    let fluctor = new Fluctor();
-
     let snapshot = fluctor.snapshot.create();
 
     expect(snapshot).to.be.instanceOf(Snapshot);
   });
 
   it('Snapshot Save API', () => {
-
-    let fluctor = new Fluctor();
 
     let mock_snapshot = {
       push: sinon.spy()
